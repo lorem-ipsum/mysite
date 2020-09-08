@@ -19,7 +19,7 @@ class Movie(models.Model):
     mainPicSrc = models.CharField(max_length=256)
     star = models.CharField(max_length=10)
     summary = models.TextField()
-    characters = models.ManyToManyField(Character)
+    characters = models.ManyToManyField(Character, related_name='charsmovies')
 
     def __str__(self):
         return f"{self.mid}, {self.title}"
