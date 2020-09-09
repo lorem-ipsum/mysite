@@ -12,7 +12,7 @@ import time
 
 def movies(request):
     if(request.method == 'GET'):
-        ms = Movie.objects.filter()
+        ms = Movie.objects.filter().order_by('-star')
         movielist = []
         page = int(request.GET['page'])
         print(page)
@@ -104,7 +104,7 @@ def search(request):
         print(item, key)
         if item == 'movie':
             ms = Movie.objects.filter(Q(title__contains=key) | Q(
-                characters__name__contains=key)).distinct()
+                characters__name__contains=key)).distinct().order_by('-star')
             movielist = []
             page = int(request.GET['page'])
             print(page)
