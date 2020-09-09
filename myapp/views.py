@@ -67,12 +67,15 @@ def character(request, cid):
             relatedmovies.append(movie.mid)
         for movie in relatedmovies:
             for char in Movie.objects.get(mid=movie).characters.all():
+                if char.cid == cid:
+                    continue
                 if char.cid in relatedcharsdict:
                     relatedcharsdict[char.cid] += 1
                 else:
                     relatedcharsdict[char.cid] = 1
         for char in relatedcharsdict:
             relatedchars.append([char, relatedcharsdict[char]])
+        relatedchars.sort(key=lambda char: -char[1])
         resp = {
             "cid": c.cid,
             "name": c.name,
